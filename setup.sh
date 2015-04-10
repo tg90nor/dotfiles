@@ -54,7 +54,7 @@ vim_conf() {
   mkdir -p ~/.vim/bundle
   if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    vim +PluginInstall +qall
+    vim +PluginInstall +qall || true
   fi
 }
 
@@ -74,7 +74,7 @@ zsh_conf() {
   # Install oh-my-zsh
   if [ ! -d ~/.oh-my-zsh ]; then
     git clone --depth=1 https://github.com/tg90nor/oh-my-zsh.git ~/.oh-my-zsh
-    ~/.oh-my-zsh
+    chsh -s `which zsh`
   else
     cd ~/.oh-my-zsh
     git pull
