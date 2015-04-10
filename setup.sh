@@ -52,8 +52,10 @@ vim_conf() {
   curl https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim > ~/.vim/colors/distinguished.vim
   # Install vundle
   mkdir -p ~/.vim/bundle
-  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  vim +PluginInstall +qall
+  if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
+    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim +PluginInstall +qall
+  fi
 }
 
 # Make tmux awesome
@@ -70,7 +72,13 @@ tmux_conf() {
 # Make zsh awesome
 zsh_conf() {
   # Install oh-my-zsh
-  curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+  if [ ! -d ~/.oh-my-zsh ]; then
+    git clone --depth=1 https://github.com/tg90nor/oh-my-zsh.git ~/.oh-my-zsh
+    ~/.oh-my-zsh
+  else
+    cd ~/.oh-my-zsh
+    git pull
+  fi
   # Copy .zshrc
   mv ~/.zshrc ~/.zshrc.lame || true
   cp $dotdir/.zshrc ~/.zshrc
