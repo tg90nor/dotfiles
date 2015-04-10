@@ -24,6 +24,10 @@ elif [[ "$unamestr" == "Darwin" ]]; then
 else
   os=$unamestr
 fi
+# Install curl, if missing
+if ! type "curl" > /dev/null; then
+  install_pkg curl
+fi
 
 # Make vim awesome
 vim_conf() {
