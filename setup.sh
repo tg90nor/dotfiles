@@ -71,9 +71,9 @@ install_pkg() {
   if [[ "$os" == "Darwin" ]]; then
     $(brew install $1)
   elif [[ "$os" == "redhat" ]]; then
-    $(yum install $1)
+    $(sudo yum install $1)
   elif [[ "$os" == "Ubuntu" ]]; then
-    $(apt-get install $1)
+    $(sudo apt-get install $1)
   else
     echo "Unknown OS, cannot install $1"
   fi
