@@ -46,10 +46,10 @@ fi
 vim_conf() {
   # Copy .vimrc
   mv ~/.vimrc ~/.vimrc.lame || true
-  cp $dotdir/.vimrc ~/.vimrc
+  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/.vimrc > ~/.vimrc
   # Install distinguished color theme
   mkdir -p ~/.vim/colors
-  curl https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim > ~/.vim/colors/distinguished.vim
+  curl -s https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim > ~/.vim/colors/distinguished.vim
   # Install vundle
   mkdir -p ~/.vim/bundle
   if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
@@ -66,7 +66,7 @@ tmux_conf() {
   fi
   # Copy .tmux.conf
   mv ~/.tmux.conf ~/.tmux.conf.lame || true
-  cp $dotdir/.tmux.conf ~/.tmux.conf
+  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/.tmux.conf > ~/.tmux.conf
 }
 
 # Make zsh awesome
@@ -81,7 +81,7 @@ zsh_conf() {
   fi
   # Copy .zshrc
   mv ~/.zshrc ~/.zshrc.lame || true
-  cp $dotdir/.zshrc ~/.zshrc
+  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/.zshrc > ~/.zshrc
 }
 
 # Install rvm and ruby
