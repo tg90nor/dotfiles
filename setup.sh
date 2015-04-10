@@ -24,6 +24,19 @@ elif [[ "$unamestr" == "Darwin" ]]; then
 else
   os=$unamestr
 fi
+
+install_pkg() {
+  if [[ "$os" == "Darwin" ]]; then
+    $(brew install $1)
+  elif [[ "$os" == "redhat" ]]; then
+    $(sudo yum install $1)
+  elif [[ "$os" == "Ubuntu" ]]; then
+    $(sudo apt-get install $1)
+  else
+    echo "Unknown OS, cannot install $1"
+  fi
+}
+
 # Install curl, if missing
 if ! type "curl" > /dev/null; then
   install_pkg curl
@@ -69,18 +82,6 @@ rvm() {
   \curl -sSL https://get.rvm.io | bash -s stable
   rvm install 2.2
   rvm use 2.2 --default
-}
-
-install_pkg() {
-  if [[ "$os" == "Darwin" ]]; then
-    $(brew install $1)
-  elif [[ "$os" == "redhat" ]]; then
-    $(sudo yum install $1)
-  elif [[ "$os" == "Ubuntu" ]]; then
-    $(sudo apt-get install $1)
-  else
-    echo "Unknown OS, cannot install $1"
-  fi
 }
 
 vim_conf
