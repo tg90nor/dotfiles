@@ -1,6 +1,4 @@
 #!/usr/bin/env zsh
-set -x
-unset dotdir
 
 # Init
 # Get script directory
@@ -38,7 +36,7 @@ vim_conf() {
   vim +PluginInstall +qall
   # Install distinguished color theme
   mkdir -p ~/.vim/colors
-  curl https://raw.github.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim > ~/.vim/colors/distinguished.vim
+  curl https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim > ~/.vim/colors/distinguished.vim
 }
 
 # Make tmux awesome
@@ -54,11 +52,11 @@ tmux_conf() {
 
 # Make zsh awesome
 zsh_conf() {
+  # Install oh-my-zsh
+  curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
   # Copy .zshrc
   mv ~/.zshrc ~/.zshrc.lame
   cp $dotdir/.zshrc ~/.zshrc
-  # Install oh-my-zsh
-  curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 }
 
 # Install rvm and ruby
@@ -81,7 +79,7 @@ install_pkg() {
   fi
 }
 
-#vim_conf
-#tmux_conf
-#zsh_conf
+vim_conf
+tmux_conf
+zsh_conf
 #rvm
