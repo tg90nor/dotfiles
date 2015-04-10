@@ -28,15 +28,15 @@ fi
 # Make vim awesome
 vim_conf() {
   # Copy .vimrc
-  mv ~/.vimrc ~/.vimrc.lame
+  mv ~/.vimrc ~/.vimrc.lame || true
   cp $dotdir/.vimrc ~/.vimrc
+  # Install distinguished color theme
+  mkdir -p ~/.vim/colors
+  curl https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim > ~/.vim/colors/distinguished.vim
   # Install vundle
   mkdir -p ~/.vim/bundle
   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   vim +PluginInstall +qall
-  # Install distinguished color theme
-  mkdir -p ~/.vim/colors
-  curl https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim > ~/.vim/colors/distinguished.vim
 }
 
 # Make tmux awesome
@@ -46,7 +46,7 @@ tmux_conf() {
     install_pkg tmux
   fi
   # Copy .tmux.conf
-  mv ~/.tmux.conf ~/.tmux.conf.lame
+  mv ~/.tmux.conf ~/.tmux.conf.lame || true
   cp $dotdir/.tmux.conf ~/.tmux.conf
 }
 
@@ -55,7 +55,7 @@ zsh_conf() {
   # Install oh-my-zsh
   curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
   # Copy .zshrc
-  mv ~/.zshrc ~/.zshrc.lame
+  mv ~/.zshrc ~/.zshrc.lame || true
   cp $dotdir/.zshrc ~/.zshrc
 }
 
