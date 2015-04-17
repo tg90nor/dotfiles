@@ -45,9 +45,11 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(tmux rails git)
+plugins=(tmux rails git knife)
 
 ZSH_TMUX_AUTOSTART=true
+KNIFE_CONF_PATH=~/.chef/knife.rb
+KNIFE_COOKBOOK_PATH=~/proj/chef/chef-repo/cookbooks
 
 # User configuration
 
