@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+set -x
 
 # Init
 # Get script directory
