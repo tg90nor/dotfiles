@@ -2,8 +2,6 @@
 set -x
 
 # Init
-# Get script directory
-dotdir=$(dirname ${0:A})
 # Detect OS
 os="dunno"
 unamestr=$(uname)
