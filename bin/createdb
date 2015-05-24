@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+ 
+EXPECTED_ARGS=1
+E_BADARGS=65
+MYSQL="/usr/bin/env mysql"
+PASS=`openssl rand -base64 16`
+ 
+Q1="CREATE DATABASE IF NOT EXISTS $1;"
+Q2="GRANT ALL ON $1.* TO '$1'@'localhost' IDENTIFIED BY '$PASS';"
+Q3="FLUSH PRIVILEGES;"
+SQL="${Q1}${Q2}${Q3}"
+ 
+if [ $# -ne $EXPECTED_ARGS ]
+then
+  echo "Usage: $0 dbname"
+  exit $E_BADARGS
+fi
+
+echo "$SQL"
+$MYSQL -u root -e "$SQL"
+echo Generated password: $PASS

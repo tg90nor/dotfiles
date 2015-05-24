@@ -81,6 +81,13 @@ zsh_conf() {
   curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/.zshrc > ~/.zshrc
 }
 
+populate_bin() {
+  mkdir -p ~/bin
+  rm ~/bin/createdb || true
+  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/bin/createdb > ~/bin/createdb
+  chmod 0700 ~/bin/createdb
+}
+
 # Install rvm and ruby
 rvm() {
   gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
@@ -92,4 +99,5 @@ rvm() {
 vim_conf
 tmux_conf
 zsh_conf
+populate_bin
 #rvm
