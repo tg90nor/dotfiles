@@ -53,7 +53,7 @@ KNIFE_COOKBOOK_PATH=~/proj/chef/chef-repo/cookbooks
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:~/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:$HOME/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Disable oh-my-zsh auto update
