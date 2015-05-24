@@ -15,3 +15,7 @@ fi
 export VISUAL=vim
 export EDITOR=vim
 export LESS='-F -g -R -X -z-4'
+export PATH="$PATH:$HOME/bin"
+
+alias _="sudo "
+alias rrails="ssh -L 3000:localhost:3000"
