@@ -69,6 +69,7 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 export EDITOR='vim'
 export DOCKER_HOST=tcp://127.0.0.1:2375
+export LESS=FRX
 
 # else
 #   export EDITOR='mvim'
