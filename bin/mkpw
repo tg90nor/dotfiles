@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+LENGTH=16
+if [ $# -eq 1 ]
+then
+  LENGTH=$1
+fi
+
+openssl rand -base64 $LENGTH

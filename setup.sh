@@ -85,7 +85,9 @@ populate_bin() {
   mkdir -p ~/bin
   rm ~/bin/createdb || true
   curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/bin/createdb > ~/bin/createdb
-  chmod 0700 ~/bin/createdb
+  rm ~/bin/mkpw || true
+  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/bin/mkpw > ~/bin/mkpw
+  chmod 0700 ~/bin/*
 }
 
 # Install rvm and ruby
