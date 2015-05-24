@@ -69,16 +69,23 @@ tmux_conf() {
 
 # Make zsh awesome
 zsh_conf() {
-  # Install oh-my-zsh
-  if [ ! -d ~/.oh-my-zsh ]; then
-    git clone --depth=1 https://github.com/tg90nor/oh-my-zsh.git ~/.oh-my-zsh
+  # Install prezto
+  if [ ! -d ~/.zprezto ]; then
+    git clone --recursive https://github.com/tg90nor/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    setopt EXTENDED_GLOB
+    for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+      ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+    done
   else
-    cd ~/.oh-my-zsh
-    git pull
+    cd ~/.zprezto
+    git pull && git submodule update --init --recursive
   fi
   # Copy .zshrc
   mv ~/.zshrc ~/.zshrc.lame || true
   curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/.zshrc > ~/.zshrc
+  # Copy .zpreztorc
+  mv ~/.zpreztorc ~/.zpreztorc.lame || true
+  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/.zpreztorc > ~/.zpreztorc
 }
 
 populate_bin() {
