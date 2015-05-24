@@ -83,6 +83,8 @@ zsh_conf() {
 
 populate_bin() {
   mkdir -p ~/bin
+  rm ~/bin/dotupdate || true
+  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/bin/dotupdate > ~/bin/dotupdate
   rm ~/bin/createdb || true
   curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/bin/createdb > ~/bin/createdb
   rm ~/bin/mkpw || true
