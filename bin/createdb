@@ -2,7 +2,6 @@
  
 EXPECTED_ARGS=1
 E_BADARGS=65
-MYSQL="/usr/bin/env mysql"
 PASS=`openssl rand -base64 16`
  
 Q1="CREATE DATABASE IF NOT EXISTS $1;"
@@ -17,5 +16,5 @@ then
 fi
 
 echo "$SQL"
-$MYSQL -u root -e "$SQL"
+mysql -u root -e "$SQL"
 echo Generated password: $PASS
