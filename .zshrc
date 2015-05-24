@@ -56,6 +56,9 @@ KNIFE_COOKBOOK_PATH=~/proj/chef/chef-repo/cookbooks
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:~/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# Disable oh-my-zsh auto update
+DISABLE_AUTO_UPDATE="true"
+
 source $ZSH/oh-my-zsh.sh
 
 
@@ -86,5 +89,6 @@ export DOCKER_HOST=tcp://127.0.0.1:2375
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tkill="tmux kill-session"
+alias rrails="ssh -L 3000:localhost:3000"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
