@@ -44,10 +44,10 @@ fi
 install_dotfiles() {
   if [ -d ~/.dotfiles ]
   then
-    git clone https://github.com/tg90nor/dotfiles.git ~/.dotfiles
-  else
     cd ~/.dotfiles
     git pull
+  else
+    git clone https://github.com/tg90nor/dotfiles.git ~/.dotfiles
   fi
 }
 
