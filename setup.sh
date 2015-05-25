@@ -61,6 +61,8 @@ vim_conf() {
   if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   fi
+  # Create directories to hold vim backup, swap, undo and view files
+  mkdir -p ~/.vim/backup ~/.vim/swap ~/.vim/undo ~/.vim/view
 }
 
 # Make tmux awesome
