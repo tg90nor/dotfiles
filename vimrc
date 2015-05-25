@@ -21,7 +21,9 @@ syntax on
 set tabstop=2
 set shiftwidth=2
 set expandtab
-colo distinguished
+if &t_Co == 256
+  colo distinguished
+endif
 let mapleader = ','
 set nu
 set ruler
