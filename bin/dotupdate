@@ -1,3 +1,5 @@
 #!/usr/bin/env zsh
 
-curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/setup.sh | zsh
+cd ~/.dotfiles
+git pull
+./setup.sh

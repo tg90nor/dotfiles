@@ -41,11 +41,21 @@ if ! type "curl" > /dev/null; then
   install_pkg curl
 fi
 
+install_dotfiles() {
+  if [ -d ~/.dotfiles ]
+  then
+    git clone https://github.com/tg90nor/dotfiles.git ~/.dotfiles
+  else
+    cd ~/.dotfiles
+    git pull
+  fi
+}
+
 # Make vim awesome
 vim_conf() {
   # Copy .vimrc
-  mv ~/.vimrc ~/.vimrc.lame || true
-  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/vimrc > ~/.vimrc
+  rm ~/.vimrc || true
+  ln -s ~/.dotfiles/vimrc ~/.vimrc
   # Install vundle
   mkdir -p ~/.vim/bundle
   if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
@@ -60,8 +70,8 @@ tmux_conf() {
     install_pkg tmux
   fi
   # Copy .tmux.conf
-  mv ~/.tmux.conf ~/.tmux.conf.lame || true
-  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/tmux.conf > ~/.tmux.conf
+  rm ~/.tmux.conf || true
+  ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
 }
 
 # Make zsh awesome
@@ -78,22 +88,19 @@ zsh_conf() {
     git pull && git submodule update --init --recursive
   fi
   # Copy .zshrc
-  mv ~/.zshrc ~/.zshrc.lame || true
-  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/zshrc > ~/.zshrc
+  rm ~/.zshrc || true
+  ln -s ~/.dotfiles/zshrc ~/.zshrc
   # Copy .zpreztorc
-  mv ~/.zpreztorc ~/.zpreztorc.lame || true
-  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/zpreztorc > ~/.zpreztorc
+  rm ~/.zpreztorc || true
+  ln -s ~/.dotfiles/zpreztorc ~/.zpreztorc
 }
 
 populate_bin() {
   mkdir -p ~/bin
   rm ~/bin/dotupdate || true
-  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/bin/dotupdate > ~/bin/dotupdate
   rm ~/bin/createdb || true
-  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/bin/createdb > ~/bin/createdb
   rm ~/bin/mkpw || true
-  curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/bin/mkpw > ~/bin/mkpw
-  chmod 0700 ~/bin/*
+  ln -s ~/.dotfiles/bin/* ~/bin/
 }
 
 # Install rvm and ruby
@@ -104,6 +111,7 @@ rvm() {
   rvm use 2.2 --default
 }
 
+install_dotfiles
 vim_conf
 tmux_conf
 zsh_conf
