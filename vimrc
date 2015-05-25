@@ -18,6 +18,46 @@ call vundle#end()            " required
 
 filetype plugin on
 syntax on
+
+" SECURE: Do not parse mode comments in files.
+set modelines=0
+
+" Large undo levels.
+set undolevels=1000
+
+" Size of command history.
+set history=50
+
+" Always use unicode.
+set encoding=utf8
+
+" Fix backspace.
+" set backspace=indent,eol,start
+
+" Keep a backup file.
+set backup
+
+" Do not back up temporary files.
+set backupskip=/tmp/*,/private/tmp/*"
+
+" Store backup files in one place.
+set backupdir^=$HOME/.vim/backup//
+
+" Store swap files in one place.
+set dir^=$HOME/.vim/swap//
+
+" Store undo files in one place.
+set undodir^=$HOME/.vim/undo//
+
+" Store view files in one place.
+set viewdir=$HOME/.vim/view//
+
+" Save undo tree.
+set undofile
+
+" Allow undoing a reload from disk.
+set undoreload=1000
+
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -28,14 +68,3 @@ let mapleader = ','
 set nu
 set ruler
 set cc=80
-
-" Append modeline after last line in buffer.
-" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
-" files.
-function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-  call append(line("$"), l:modeline)
-endfunction
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
