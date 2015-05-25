@@ -10,11 +10,12 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
  
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
 Plugin 'tpope/vim-rails' 
-" All of your Plugins must be added before the following line
+
+Plugin 'Lokaltog/vim-distinguished'
+
 call vundle#end()            " required
+
 filetype plugin on
 syntax on
 set tabstop=2

@@ -46,9 +46,6 @@ vim_conf() {
   # Copy .vimrc
   mv ~/.vimrc ~/.vimrc.lame || true
   curl -s https://raw.githubusercontent.com/tg90nor/dotfiles/master/vimrc > ~/.vimrc
-  # Install distinguished color theme
-  mkdir -p ~/.vim/colors
-  curl -s https://raw.githubusercontent.com/Lokaltog/vim-distinguished/develop/colors/distinguished.vim > ~/.vim/colors/distinguished.vim
   # Install vundle
   mkdir -p ~/.vim/bundle
   if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
