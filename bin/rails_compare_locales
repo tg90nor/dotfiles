@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-[LOCALE_1, LOCALE_2] = ARGV
+first_locale, second_locale = ARGV
 
 require 'yaml'
 
@@ -17,8 +17,8 @@ def flatten_keys(hash, prefix="")
 end
 
 def compare(locale_1, locale_2)
-  yaml_1 = YAML.load(File.open(File.expand_path(locale_1)))
-  yaml_2 = YAML.load(File.open(File.expand_path(locale_2)))
+  yaml_1 = YAML.load(File.open(File.expand_path("config/locales/application.#{locale_1}.yml")))
+  yaml_2 = YAML.load(File.open(File.expand_path("config/locales/application.#{locale_2}.yml")))
 
   keys_1 = flatten_keys(yaml_1[yaml_1.keys.first])
   keys_2 = flatten_keys(yaml_2[yaml_2.keys.first])
@@ -33,6 +33,6 @@ def compare(locale_1, locale_2)
   end
 end
 
-compare(LOCALE_1, LOCALE_2)
+compare(first_locale, second_locale)
 puts
-compare(LOCALE_2, LOCALE_1)
+compare(second_locale, first_locale)
