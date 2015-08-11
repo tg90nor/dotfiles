@@ -75,3 +75,4 @@ set nu
 set ruler
 set cc=80
 set backspace=2
+set mouse=n
