@@ -12,6 +12,12 @@ Plugin 'gmarik/Vundle.vim'
  
 Plugin 'tpope/vim-rails' 
 
+if v:version > 703
+  Plugin 'Shougo/vimproc.vim'
+  Plugin 'Quramy/tsuquyomi'
+  Plugin 'leafgarland/typescript-vim'
+endif
+
 Plugin 'Lokaltog/vim-distinguished'
 
 call vundle#end()            " required
@@ -68,3 +74,4 @@ let mapleader = ','
 set nu
 set ruler
 set cc=80
+set backspace=2
