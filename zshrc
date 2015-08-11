@@ -16,7 +16,7 @@ export VISUAL=vim
 export EDITOR=vim
 export LESS='-F -g -R -X -z-4'
 export GOPATH=$HOME/proj/go
-export PATH="$PATH:$HOME/bin:$GOPATH/bin"
+export PATH="$PATH:$HOME/bin:$GOPATH/bin:$HOME/.node/bin"
 export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
 
