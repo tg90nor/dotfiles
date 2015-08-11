@@ -17,5 +17,26 @@ export EDITOR=vim
 export LESS='-F -g -R -X -z-4'
 export PATH="$PATH:$HOME/bin"
 
-alias _="sudo "
+
+do_sudo() {
+    integer glob=1
+    while (($#))
+    do
+        case $1 in
+        command|exec|-) shift; break;;
+  nocorrect) shift; continue;;
+  noglob) glob=0; shift; continue;;
+  *) break;;
+  esac
+    done
+    (($# == 0)) && 1=zsh
+    if ((glob))
+    then
+        command sudo $~==*
+    else
+  command sudo $==*
+    fi
+}
+
+alias _='noglob do_sudo '
 alias rrails="ssh -L 3000:localhost:3000"
