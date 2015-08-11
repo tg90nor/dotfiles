@@ -40,3 +40,5 @@ do_sudo() {
 
 alias _='noglob do_sudo '
 alias rrails="ssh -L 3000:localhost:3000"
+
+bindkey -s "^[OM" "^M"
