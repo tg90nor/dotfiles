@@ -15,7 +15,8 @@ fi
 export VISUAL=vim
 export EDITOR=vim
 export LESS='-F -g -R -X -z-4'
-export PATH="$PATH:$HOME/bin"
+export GOPATH=$HOME/proj/go
+export PATH="$PATH:$HOME/bin:$GOPATH/bin"
 
 
 do_sudo() {
