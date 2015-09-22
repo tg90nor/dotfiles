@@ -66,6 +66,7 @@ set undoreload=1000
 
 set tabstop=2
 set shiftwidth=2
+set softtabstop=2
 set expandtab
 if &t_Co == 256
   colo distinguished
@@ -76,3 +77,4 @@ set ruler
 set cc=80
 set backspace=2
 set mouse=n
+set ttymouse=xterm2
