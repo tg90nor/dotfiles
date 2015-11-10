@@ -15,10 +15,14 @@ fi
 export VISUAL=vim
 export EDITOR=vim
 export LESS='-F -g -R -X -z-4'
-export GOPATH=$HOME/proj/go
-export PATH="$PATH:$HOME/bin:$GOPATH/bin:$HOME/.node/bin"
-export VAGRANT_DEFAULT_PROVIDER=virtualbox
+export PATH="$PATH:$HOME/bin"
 
+# GO!
+export GOPATH=$HOME/proj/go
+export PATH="$PATH:$GOPATH/bin"
+
+# Python
+export PYTHONPATH=$HOME/proj/py
 
 do_sudo() {
     integer glob=1
@@ -44,3 +48,7 @@ alias _='noglob do_sudo '
 alias rrails="ssh -L 3000:localhost:3000"
 
 bindkey -s "^[OM" "^M"
+
+if [[ -s "$HOME/.zshrc_custom" ]]; then
+  source "$HOME/.zshrc_custom"
+fi
