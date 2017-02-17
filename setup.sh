@@ -102,6 +102,7 @@ populate_bin() {
   rm ~/bin/dotupdate || true
   rm ~/bin/createdb || true
   rm ~/bin/mkpw || true
+  rm ~/bin/ddig || true
   ln -s ~/.dotfiles/bin/* ~/bin/
 }
 

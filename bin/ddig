@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "=> MX: <========"
+dig +short MX $1
+echo
+echo "=> NS: <========"
+dig +short NS $1
+echo
+echo "=> www: <======="
+dig +short www.$1
+echo
+echo "=> WHOIS: <====="
+whois $1 | egrep "(Registrar|Id Nu|Created|Last up|Name)"
