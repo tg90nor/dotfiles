@@ -18,7 +18,7 @@ if v:version > 703
   Plugin 'leafgarland/typescript-vim'
 endif
 
-Plugin 'Lokaltog/vim-distinguished'
+Plugin 'sickill/vim-monokai'
 
 call vundle#end()            " required
 
@@ -69,7 +69,7 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 if &t_Co == 256
-  colo distinguished
+  colo monokai
 endif
 let mapleader = ','
 set nu
