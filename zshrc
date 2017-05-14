@@ -46,6 +46,7 @@ do_sudo() {
 
 alias _='noglob do_sudo '
 alias rrails="ssh -L 3000:localhost:3000"
+alias gocd='cd $GOPATH/src'
 
 bindkey -s "^[OM" "^M"
 
