@@ -73,7 +73,10 @@ tmux_conf() {
   fi
   # Copy .tmux.conf
   rm ~/.tmux.conf || true
-  ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
+  cp ~/.dotfiles/tmux.conf ~/.tmux.conf
+  if [ -f ~/.tmux.conf.local ]; then
+    cat ~/.tmux.conf.local >> ~/.tmux.conf
+  fi
 }
 
 # Make zsh awesome
