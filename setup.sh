@@ -99,11 +99,12 @@ zsh_conf() {
 
 populate_bin() {
   mkdir -p ~/bin
-  rm ~/bin/dotupdate || true
-  rm ~/bin/createdb || true
-  rm ~/bin/mkpw || true
-  rm ~/bin/ddig || true
-  ln -s ~/.dotfiles/bin/* ~/bin/
+  for script in ~/.dotfiles/bin/*; do
+    if [ ! -L ~/bin/$(basename $script) ]; then
+      mv ~/bin/$(basename $script) ~/bin/_$(basename $script)
+    fi
+    ln -s $script ~/bin/
+  done
 }
 
 # Install rvm and ruby
