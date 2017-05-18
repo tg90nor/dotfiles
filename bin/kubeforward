@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ -f $HOME/bin/kubealiases ]; then
+  . $HOME/bin/kubealiases
+fi
+
+if [ -z ${TMUX_PANE+x} ]; then
+  kubectl port-forward ${!1-$1} $2
+else
+  command="sh -c 'kubectl port-forward ${!1-$1} $2; echo Press enter to exit; read anything'"
+  tmux new-window -d -t 90 -n "kubeforward" "$command" 2>/dev/null || tmux split-window -d -t 90 "$command"
+fi
