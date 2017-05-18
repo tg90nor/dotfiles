@@ -16,5 +16,5 @@ then
 fi
 
 echo "$SQL"
-mysql -u root -h ${MYSQL_HOST-127.0.0.1} -e "$SQL"
+mysql -u root -h ${MYSQL_HOST-127.0.0.1} -p -e "$SQL"
 echo Generated password: $PASS
