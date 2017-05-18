@@ -105,8 +105,8 @@ populate_bin() {
   for script in ~/.dotfiles/bin/*; do
     if [ ! -L ~/bin/$(basename $script) ]; then
       mv ~/bin/$(basename $script) ~/bin/_$(basename $script)
+      ln -s $script ~/bin/
     fi
-    ln -s $script ~/bin/
   done
 }
 
