@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 if [ -f $HOME/bin/kubealiases ]; then
   . $HOME/bin/kubealiases
