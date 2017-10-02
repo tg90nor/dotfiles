@@ -52,6 +52,17 @@ function gocd() {
 }
 compctl -/ -W $GOPATH/src gocd
 
+source <(kubectl completion zsh)
+function kco() {
+  if [ -z $1 ]; then
+    kubectl config current-context
+  else
+    kubectl config use-context $1
+  fi
+}
+complete -F __kubectl_config_get_contexts kco
+alias kc=kubectl
+
 bindkey -s "^[OM" "^M"
 
 if [[ -s "$HOME/.zshrc_custom" ]]; then
