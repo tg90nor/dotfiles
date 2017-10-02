@@ -46,7 +46,11 @@ do_sudo() {
 
 alias _='noglob do_sudo '
 alias rrails="ssh -L 3000:localhost:3000"
-alias gocd='cd $GOPATH/src'
+
+function gocd() {
+  cd $GOPATH/src/$1
+}
+compctl -/ -W $GOPATH/src gocd
 
 bindkey -s "^[OM" "^M"
 
