@@ -6,4 +6,6 @@ then
   LENGTH=$1
 fi
 
-openssl rand -base64 $LENGTH
+NUMBYTES=`echo $LENGTH | awk '{print int($1*1.16)+1}'`
+
+openssl rand -base64 $NUMBYTES | sed 's/=*$//g' | cut -c1-$LENGTH
