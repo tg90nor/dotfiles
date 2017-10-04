@@ -74,7 +74,7 @@ endif
 let mapleader = ','
 set nu
 set ruler
-set cc=80
+set cc=80,140
 set backspace=2
 set mouse=n
 set ttymouse=xterm2
