@@ -9,8 +9,9 @@ call vundle#begin()
  
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
- 
-Plugin 'tpope/vim-rails' 
+
+Plugin 'tpope/vim-rails'
+Plugin 'rodjek/vim-puppet'
 
 if v:version > 703
   Plugin 'Shougo/vimproc.vim'
