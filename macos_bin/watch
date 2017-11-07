@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+interval=2
+if [ "$1" = "-n" ]; then
+  shift
+  interval=$1
+  shift
+fi
+col=$(tput cols)
+head="Every ${interval}s: $@"
+
+while :; do
+  clear
+  printf "%s%*s\n\n" "$head" $(($col-${#head})) "$(date)"
+  $SHELL -c "$*"
+  sleep $interval
+done

@@ -111,6 +111,14 @@ populate_bin() {
       ln -s $script ~/bin/
     fi
   done
+  if [[ "$os" == "Darwin" ]]; then
+    for script in ~/.dotfiles/macos_bin/*; do
+      if [ ! -L ~/bin/$(basename $script) ]; then
+        mv ~/bin/$(basename $script) ~/bin/_$(basename $script)
+        ln -s $script ~/bin/
+      fi
+    done
+  fi
 }
 
 # Install rvm and ruby
