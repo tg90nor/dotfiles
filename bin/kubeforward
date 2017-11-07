@@ -6,9 +6,11 @@ while true; do
   if [ "$1" = "-n" ]; then
     shift
     namespace="$1"
+    shift
   elif [ "$1" = "-l" ]; then
     shift
     pod=$(kubectl get pods -n "$namespace" -l "$1" -o=jsonpath='{.items[0].metadata.name}')
+    shift
   else
     break
   fi
@@ -16,8 +18,8 @@ done
 
 if [ -z $pod ] && [ ! -z $1 ]; then
   pod="$1"
+  shift
 fi
-shift
 
 if [ $# -ne 1 ]; then
   echo "Usage: $0 [-n NAMESPACE] (POD_NAME | -l LABEL) PORT"
@@ -26,8 +28,8 @@ fi
 port=$1
 
 if [ -z ${TMUX_PANE+x} ]; then
-  kubectl port-forward $pod $port
+  kubectl port-forward -n "$namespace" "$pod" "$port"
 else
-  command="sh -c 'kubectl port-forward $pod $port; echo Press enter to exit; read anything'"
+  command="sh -c 'kubectl port-forward -n $namespace $pod $port; echo Press enter to exit; read anything'"
   tmux new-window -d -t 90 -n "kubeforward" "$command" 2>/dev/null || tmux split-window -d -t 90 "$command"
 fi
