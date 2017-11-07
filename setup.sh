@@ -92,6 +92,9 @@ zsh_conf() {
     cd ~/.zprezto
     git pull && git submodule update --init --recursive
   fi
+  # Copy .zshenv
+  rm ~/.zshenv || true
+  ln -s ~/.dotfiles/zshenv ~/.zshenv
   # Copy .zshrc
   rm ~/.zshrc || true
   ln -s ~/.dotfiles/zshrc ~/.zshrc

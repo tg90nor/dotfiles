@@ -1,28 +1,11 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
-
 export VISUAL=vim
 export EDITOR=vim
 export LESS='-F -g -R -X -z-4'
-export PATH="$PATH:$HOME/bin"
-
-# GO!
-export GOPATH=$HOME/proj/go
-export PATH="$PATH:$GOPATH/bin"
-
-# Python
-export PYTHONPATH=$HOME/proj/py
 
 do_sudo() {
     integer glob=1
@@ -43,28 +26,16 @@ do_sudo() {
   command sudo $==*
     fi
 }
-
 alias _='noglob do_sudo '
-alias rrails="ssh -L 3000:localhost:3000"
-
-function gocd() {
-  cd $GOPATH/src/$1
-}
-compctl -/ -W $GOPATH/src gocd
-
-source <(kubectl completion zsh)
-function kco() {
-  if [ -z $1 ]; then
-    kubectl config current-context
-  else
-    kubectl config use-context $1
-  fi
-}
-complete -F __kubectl_config_get_contexts kco
-alias kc=kubectl
 
 bindkey -s "^[OM" "^M"
 
+# Completion
+compctl -/ -W $GOPATH/src gocd
+source <(kubectl completion zsh)
+complete -F __kubectl_config_get_contexts kco
+
+# Source custom settings
 if [[ -s "$HOME/.zshrc_custom" ]]; then
   source "$HOME/.zshrc_custom"
 fi
