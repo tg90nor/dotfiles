@@ -17,6 +17,7 @@ function kco() {
   fi
 }
 alias kc=kubectl
+alias kfw=kubeforward
 
 # Source custom settings
 if [[ -s "$HOME/.zshenv_custom" ]]; then
