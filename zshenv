@@ -1,20 +1,14 @@
-# My scripts
-export PATH="$PATH:$HOME/bin"
+## Aliases and functions
 
-# Go
-export GOPATH=$HOME/proj/go
-export PATH="$PATH:$GOPATH/bin"
+# go
 function gocd() {
   cd $GOPATH/src/$1
 }
 
-# Python
-export PYTHONPATH=$HOME/proj/py
-
-# Ruby
+# ruby
 alias rrails="ssh -L 3000:localhost:3000"
 
-# Kubernetes
+# kubernetes
 function kco() {
   if [ -z $1 ]; then
     kubectl config current-context
@@ -24,3 +18,7 @@ function kco() {
 }
 alias kc=kubectl
 
+# Source custom settings
+if [[ -s "$HOME/.zshenv_custom" ]]; then
+  source "$HOME/.zshenv_custom"
+fi

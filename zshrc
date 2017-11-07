@@ -35,6 +35,16 @@ compctl -/ -W $GOPATH/src gocd
 source <(kubectl completion zsh)
 complete -F __kubectl_config_get_contexts kco
 
+# dotfile scripts in path
+export PATH="$PATH:$HOME/bin"
+
+# go
+export GOPATH=$HOME/proj/go
+export PATH="$PATH:$GOPATH/bin"
+
+# python
+export PYTHONPATH=$HOME/proj/py
+
 # Source custom settings
 if [[ -s "$HOME/.zshrc_custom" ]]; then
   source "$HOME/.zshrc_custom"
