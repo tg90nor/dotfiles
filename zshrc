@@ -30,11 +30,6 @@ alias _='noglob do_sudo '
 
 bindkey -s "^[OM" "^M"
 
-# Completion
-compctl -/ -W $GOPATH/src gocd
-source <(kubectl completion zsh)
-complete -F __kubectl_config_get_contexts kco
-
 # dotfile scripts in path
 export PATH="$PATH:$HOME/bin"
 
@@ -44,6 +39,11 @@ export PATH="$PATH:$GOPATH/bin"
 
 # python
 export PYTHONPATH=$HOME/proj/py
+
+# Completion
+compctl -/ -W $GOPATH/src gocd
+source <(kubectl completion zsh)
+complete -F __kubectl_config_get_contexts kco
 
 # Source custom settings
 if [[ -s "$HOME/.zshrc_custom" ]]; then
