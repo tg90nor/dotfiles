@@ -13,6 +13,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-rails'
 Plugin 'rodjek/vim-puppet'
 
+Plugin 'fatih/vim-go'
+
 if v:version > 703
   Plugin 'Shougo/vimproc.vim'
   Plugin 'Quramy/tsuquyomi'
