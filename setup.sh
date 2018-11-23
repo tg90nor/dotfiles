@@ -63,6 +63,10 @@ vim_conf() {
   fi
   # Create directories to hold vim backup, swap, undo and view files
   mkdir -p ~/.vim/backup ~/.vim/swap ~/.vim/undo ~/.vim/view
+
+  # Copy .ctags
+  rm ~/.ctags || true
+  ln -s ~/.dotfiles/ctags ~/.ctags
 }
 
 # Make tmux awesome
