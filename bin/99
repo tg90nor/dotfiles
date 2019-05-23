@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 command [args ...]"
+  exit
+fi
+cmd="$*"
+
+if [ -z ${TMUX_PANE+x} ]; then
+  $($cmd)
+else
+  command="sh -c '$cmd; echo Press enter to exit; read anything'"
+  tmux new-window -d -t 99 -n "99 servers" "$command" 2>/dev/null || tmux split-window -d -t 99 "$command"
+fi
