@@ -19,7 +19,7 @@ export PYTHONPATH=$HOME/proj/py
 
 source <(kubectl completion zsh)
 complete -F __kubectl_config_get_contexts kco
-complete -F _kubectl kc
+complete -o default -o nospace -F __start_kubectl kc
 
 ## Aliases and functions
 
