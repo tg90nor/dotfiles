@@ -1,8 +1,5 @@
 #!/usr/bin/env zsh
 
-# source .zshrc to have aliases and functions available
-source $HOME/.zshrc
-
 interval=2
 if [ "$1" = "-n" ]; then
   shift
