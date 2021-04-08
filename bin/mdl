@@ -1,0 +1,3 @@
+#!/bin/sh
+
+mdcat --ansi-only $@ | less
