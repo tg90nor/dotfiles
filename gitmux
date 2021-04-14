@@ -1,0 +1,25 @@
+tmux:
+  symbols:
+    branch: ''
+    hashprefix: ':'
+    ahead: ↑·
+    behind: ↓·
+    staged: '🐣 '
+    conflict: '✖ '
+    modified: '✏️ '
+    untracked: '🐾 '
+    stashed: '⚑ '
+    clean: ✔
+  styles:
+    state: ''
+    branch: ''
+    remote: ''
+    staged: ''
+    conflict: ''
+    modified: ''
+    untracked: ''
+    stashed: ''
+    clean: ''
+  layout: [branch, divergence, ' 🁢 ', flags, ' 🁢 ']
+  options:
+    branch_max_len: 0
