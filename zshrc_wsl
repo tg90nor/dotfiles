@@ -1,0 +1,4 @@
+function wincd() {
+  winpath=$(printf "%s\n" "$1" | sed 's/C:\\/\/mnt\/c\//' | sed 's/\\/\//g')
+  cd $winpath
+}

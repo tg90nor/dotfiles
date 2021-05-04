@@ -56,3 +56,7 @@ bindkey -s "^[OM" "^M"
 if [[ -s "$HOME/.zshrc_custom" ]]; then
   source "$HOME/.zshrc_custom"
 fi
+
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+  source "$HOME/.dotfiles/zshrc_wsl"
+fi
