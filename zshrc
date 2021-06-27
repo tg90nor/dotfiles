@@ -44,8 +44,7 @@ do_sudo() {
 }
 alias _='noglob do_sudo '
 
-# ruby
-alias rrails="ssh -L 3000:localhost:3000"
+alias cr="code -r"
 
 ## Other stuff
 
