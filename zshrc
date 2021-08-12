@@ -12,9 +12,6 @@ export LESS='-F -g -R -X -z-4'
 # dotfile scripts in path
 export PATH="$PATH:$HOME/bin"
 
-# python
-export PYTHONPATH=$HOME/proj/py
-
 ## Completion
 if which kubectl >/dev/null; then
   source <(kubectl completion zsh)
