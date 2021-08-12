@@ -16,10 +16,11 @@ export PATH="$PATH:$HOME/bin"
 export PYTHONPATH=$HOME/proj/py
 
 ## Completion
-
-source <(kubectl completion zsh)
-complete -F __kubectl_config_get_contexts kco
-complete -o default -o nospace -F __start_kubectl kc
+if which kubectl >/dev/null; then
+  source <(kubectl completion zsh)
+  complete -F __kubectl_config_get_contexts kco
+  complete -o default -o nospace -F __start_kubectl kc
+fi
 
 ## Aliases and functions
 
