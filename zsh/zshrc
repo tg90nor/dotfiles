@@ -1,15 +1,15 @@
 # znap
 source "$HOME/dot/zsh-snap/znap.zsh"
 
-znap prompt tg90nor/prompt
-
 znap source zsh-users/zsh-syntax-highlighting
 znap source zsh-users/zsh-history-substring-search
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 znap source zsh-users/zsh-autosuggestions
 function pmodload() { true }
-znap source sorin-ionescu/prezto modules/git
+znap source sorin-ionescu/prezto modules/git modules/ssh
+
+znap prompt tg90nor/prompt
 
 # Variables
 export VISUAL=vim
@@ -25,8 +25,9 @@ if which kubectl >/dev/null; then
 fi
 
 # Aliases
-# vscode
 alias cr="code -r"
+alias ll="ls -l"
+alias la="ls -la"
 
 # WSL specific stuff
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
@@ -43,4 +44,5 @@ if [ -s "$HOME/.zshrc_custom" ]; then
 fi
 
 export PATH
-true
+
+echo "Remember to tmux"
