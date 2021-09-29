@@ -16,8 +16,6 @@ fi
 echo "dotdir=$dotdir"
 echo "dotfiles_clone_method=$dotfiles_clone_method"
 
-exit
-
 _detect_os() {
   os="dunno"
   unamestr=$(uname | tr '[:upper:]' '[:lower:]')
