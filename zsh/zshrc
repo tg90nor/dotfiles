@@ -1,0 +1,46 @@
+# znap
+source "$HOME/dot/zsh-snap/znap.zsh"
+
+znap prompt tg90nor/prompt
+
+znap source zsh-users/zsh-syntax-highlighting
+znap source zsh-users/zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+znap source zsh-users/zsh-autosuggestions
+function pmodload() { true }
+znap source sorin-ionescu/prezto modules/git
+
+# Variables
+export VISUAL=vim
+export EDITOR=vim
+export LESS='-F -g -R -X -z-4'
+# dotfile scripts in path
+path+=$HOME/dot/dotfiles/bin
+path+=$HOME/bin
+
+## Completion
+if which kubectl >/dev/null; then
+  source <(kubectl completion zsh)
+fi
+
+# Aliases
+# vscode
+alias cr="code -r"
+
+# WSL specific stuff
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+  source "$HOME/dot/dotfiles/zsh/zshrc_wsl"
+fi
+
+if [ "$(uname)" = "Darwin" ]; then
+  path+=$HOME/dot/dotfiles/bin/macos
+fi
+
+# Source custom settings
+if [ -s "$HOME/.zshrc_custom" ]; then
+  source "$HOME/.zshrc_custom"
+fi
+
+export PATH
+true

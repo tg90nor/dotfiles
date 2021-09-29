@@ -1,53 +1,86 @@
 #!/usr/bin/env zsh
-set -x
 
-# Init
-# Detect OS
-os="dunno"
-unamestr=$(uname)
-if [[ "$unamestr" == "Linux" ]]; then
-  distrostr=$(lsb_release -si)
-  if [[ "$distrostr" =~ /RedHat/ ]]; then
-    os="redhat"
-  elif [[ "$distrostr" =~ /Fedora/ ]]; then
-    os="redhat"
-  else
-    os=$distrostr
-  fi
-elif [[ "$unamestr" == "Darwin" ]]; then
-  os=$unamestr
-  if ! type "brew" > /dev/null; then
-    # Install homebrew
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+dotdir="${DOTDIR:-$HOME/dot}"
+
+if [ -z $DOTFILES_CLONE_METHOD ]; then
+  echo "Which method do you want to use for cloning the dotfiles git repo? (ssh|https)"
+  read </dev/tty dotfiles_clone_method
+  if [ "$dotfiles_clone_method" != "ssh" ] && [ "$dotfiles_clone_method" != "https" ]; then
+    echo "Unrecognized option '$dotfiles_clone_method'. Aborting."
+    exit 127
   fi
 else
-  os=$unamestr
+  dotfiles_clone_method="${DOTFILES_CLONE_METHOD:-ssh}"
 fi
 
-install_pkg() {
-  if [[ "$os" == "Darwin" ]]; then
-    $(brew install $1)
-  elif [[ "$os" == "redhat" ]]; then
-    $(sudo yum install $1)
-  elif [[ "$os" == "Ubuntu" ]]; then
-    $(sudo apt-get install $1)
+echo "dotdir=$dotdir"
+echo "dotfiles_clone_method=$dotfiles_clone_method"
+
+exit
+
+_detect_os() {
+  os="dunno"
+  unamestr=$(uname | tr '[:upper:]' '[:lower:]')
+  if [ "$unamestr" = "linux" ]; then
+    if [ -f /etc/os-release ]; then
+      distrostr=$(cat /etc/os-release | egrep '^ID=' | tr '=' ' '| tr -d '"' | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
+    else
+      distrostr=$(lsb_release -si | tr '[:upper:]' '[:lower:]') 
+    fi
+    if [[ "$distrostr" =~ /redhat/ ]]; then
+      os="redhat"
+    elif [[ "$distrostr" =~ /fedora/ ]]; then
+      os="redhat"
+    else
+      os=$distrostr
+    fi
   else
-    echo "Unknown OS, cannot install $1"
+    os=$unamestr
   fi
 }
 
-# Install curl, if missing
-if ! type "curl" > /dev/null; then
-  install_pkg curl
-fi
+_install_pkg_cmd() {
+  case $os in
+    darwin)
+      # install homebrew if it is missing
+      if ! type "brew" > /dev/null; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      fi
+      install_pkg_cmd="brew install"
+      ;;
+    redhat|rhel|centos|fedora)
+      install_pkg_cmd="sudo yum install"
+      ;;
+    debian|ubuntu)
+      install_pkg_cmd="sudo apt-get install"
+      ;;
+    arch)
+      install_pkg_cmd="echo sudo pacman -S"
+      ;;
+    *)
+      echo "Unknown OS, cannot install $1"
+      ;;
+  esac
+}
+
+install_pkgs() {
+  while (($#)); do
+    if ! type "$1" > /dev/null; then
+      pkgs="$pkgs $1"
+    fi
+    shift
+  done
+  eval "$install_pkg_cmd $pkgs"
+}
 
 install_dotfiles() {
-  if [ -d ~/.dotfiles ]
-  then
-    cd ~/.dotfiles
-    git pull
-  else
-    git clone https://github.com/tg90nor/dotfiles.git ~/.dotfiles
+  if [ ! -d $dotdir/dotfiles ]
+    mkdir -p $dotdir
+    if [ "$dotfiles_cloning_method" = "https" ]; then
+      git clone https://github.com/tg90nor/dotfiles.git $dotdir/dotfiles
+    elif [ "$dotfiles_cloning_method" = "https" ]; then
+      git clone git@github.com:tg90nor/dotfiles.git $dotdir/dotfiles
+    fi
   fi
 }
 
@@ -71,10 +104,6 @@ vim_conf() {
 
 # Make tmux awesome
 tmux_conf() {
-  # Check if tmux is installed, and install if not
-  if ! type "tmux" > /dev/null; then
-    install_pkg tmux
-  fi
   # Copy .tmux.conf
   rm ~/.tmux.conf || true
   cp ~/.dotfiles/tmux.conf ~/.tmux.conf
@@ -85,48 +114,20 @@ tmux_conf() {
 
 # Make zsh awesome
 zsh_conf() {
-  # Install prezto
-  if [ ! -d ~/.zprezto ]; then
-    git clone --recursive https://github.com/tg90nor/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-    setopt EXTENDED_GLOB
-    for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-      ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-    done
-  else
-    cd ~/.zprezto
-    git pull && git submodule update --init --recursive
-  fi
-  # Copy .zshenv
-  rm ~/.zshenv || true
-  ln -s ~/.dotfiles/zshenv ~/.zshenv
-  # Copy .zshrc
-  rm ~/.zshrc || true
-  ln -s ~/.dotfiles/zshrc ~/.zshrc
-  # Copy .zpreztorc
-  rm ~/.zpreztorc || true
-  ln -s ~/.dotfiles/zpreztorc ~/.zpreztorc
+  rm ~/.zlogin ~/.zlogout ~/.zpreztorc ~/.zprofile ~/.zshenv ~/.zshenv_custom ~/.zshrc || true
+  ln -s $dotdir/dotfiles/zshenv ~/.zshenv
+  ln -s $dotdir/dotfiles/zshrc ~/.zshrc
+  # Install zsh-snap
+  cd $dotdir
+  git clone https://github.com/marlonrichert/zsh-snap.git
 }
 
-populate_bin() {
-  mkdir -p ~/bin
-  for script in ~/.dotfiles/bin/*; do
-    if [ ! -L ~/bin/$(basename $script) ]; then
-      mv ~/bin/$(basename $script) ~/bin/_$(basename $script)
-      ln -s $script ~/bin/
-    fi
-  done
-  if [[ "$os" == "Darwin" ]]; then
-    for script in ~/.dotfiles/macos_bin/*; do
-      if [ ! -L ~/bin/$(basename $script) ]; then
-        mv ~/bin/$(basename $script) ~/bin/_$(basename $script)
-        ln -s $script ~/bin/
-      fi
-    done
-  fi
-}
+_detect_os
+_install_pkg_cmd
+
+install_pkgs curl tmux git vim
 
 install_dotfiles
 vim_conf
 tmux_conf
 zsh_conf
-populate_bin
