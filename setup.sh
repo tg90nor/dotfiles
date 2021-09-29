@@ -78,7 +78,7 @@ install_dotfiles() {
     mkdir -p $dotdir
     if [ "$dotfiles_clone_method" = "https" ]; then
       git clone https://github.com/tg90nor/dotfiles.git $dotdir/dotfiles
-    elif [ "$dotfiles_clone_method" = "https" ]; then
+    elif [ "$dotfiles_clone_method" = "ssh" ]; then
       git clone git@github.com:tg90nor/dotfiles.git $dotdir/dotfiles
     fi
   fi
