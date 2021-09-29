@@ -86,7 +86,7 @@ install_dotfiles() {
 vim_conf() {
   # Copy .vimrc
   rm ~/.vimrc || true
-  ln -s ~/.dotfiles/vimrc ~/.vimrc
+  ln -s $dotdir/dotfiles/vimrc ~/.vimrc
   # Install vundle
   mkdir -p ~/.vim/bundle
   if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
@@ -97,17 +97,19 @@ vim_conf() {
 
   # Copy .ctags
   rm ~/.ctags || true
-  ln -s ~/.dotfiles/ctags ~/.ctags
+  ln -s $dotdir/dotfiles/ctags ~/.ctags
 }
 
 # Make tmux awesome
 tmux_conf() {
   # Copy .tmux.conf
   rm ~/.tmux.conf || true
-  cp ~/.dotfiles/tmux.conf ~/.tmux.conf
+  cp $dotdir/dotfiles/tmux.conf ~/.tmux.conf
   if [ -f ~/.tmux.conf.local ]; then
     cat ~/.tmux.conf.local >> ~/.tmux.conf
   fi
+  rm ~/.gitmux || true
+  ln -s $dotdir/dotfiles/gitmux ~/.gitmux
 }
 
 # Make zsh awesome
