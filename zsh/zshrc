@@ -9,8 +9,6 @@ znap source zsh-users/zsh-autosuggestions
 function pmodload() { true }
 znap source sorin-ionescu/prezto modules/git modules/ssh
 
-znap prompt tg90nor/prompt
-
 # Variables
 export VISUAL=vim
 export EDITOR=vim
@@ -48,4 +46,5 @@ export PATH
 if [ -z $TMUX ]; then
   echo "Remember to tmux"
 fi
+znap prompt tg90nor/prompt
 true
