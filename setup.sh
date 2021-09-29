@@ -117,8 +117,8 @@ tmux_conf() {
 # Make zsh awesome
 zsh_conf() {
   rm ~/.zlogin ~/.zlogout ~/.zpreztorc ~/.zprofile ~/.zshenv ~/.zshrc 2>/dev/null || true
-  ln -s $dotdir/dotfiles/zshenv ~/.zshenv
-  ln -s $dotdir/dotfiles/zshrc ~/.zshrc
+  ln -s $dotdir/dotfiles/zsh/zshenv ~/.zshenv
+  ln -s $dotdir/dotfiles/zsh/zshrc ~/.zshrc
   # Install zsh-snap
   if [ ! -d $dotdir/zsh-snap ]; then
     git clone https://github.com/marlonrichert/zsh-snap.git $dotdir/zsh-snap
