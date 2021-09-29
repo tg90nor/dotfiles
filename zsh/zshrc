@@ -45,4 +45,7 @@ fi
 
 export PATH
 
-echo "Remember to tmux"
+if [ -z $TMUX ]; then
+  echo "Remember to tmux"
+fi
+true
