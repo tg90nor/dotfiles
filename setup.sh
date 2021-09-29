@@ -76,9 +76,9 @@ install_pkgs() {
 install_dotfiles() {
   if [ ! -d $dotdir/dotfiles ]; then
     mkdir -p $dotdir
-    if [ "$dotfiles_cloning_method" = "https" ]; then
+    if [ "$dotfiles_clone_method" = "https" ]; then
       git clone https://github.com/tg90nor/dotfiles.git $dotdir/dotfiles
-    elif [ "$dotfiles_cloning_method" = "https" ]; then
+    elif [ "$dotfiles_clone_method" = "https" ]; then
       git clone git@github.com:tg90nor/dotfiles.git $dotdir/dotfiles
     fi
   fi
