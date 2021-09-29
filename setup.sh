@@ -10,7 +10,7 @@ if [ -z $DOTFILES_CLONE_METHOD ]; then
     exit 127
   fi
 else
-  dotfiles_clone_method="${DOTFILES_CLONE_METHOD:-ssh}"
+  dotfiles_clone_method="$DOTFILES_CLONE_METHOD"
 fi
 
 echo "dotdir=$dotdir"
@@ -68,7 +68,9 @@ install_pkgs() {
     fi
     shift
   done
-  eval "$install_pkg_cmd $pkgs"
+  if [ ! -z $pkgs ]; then
+    eval "$install_pkg_cmd $pkgs"
+  fi
 }
 
 install_dotfiles() {
@@ -85,7 +87,7 @@ install_dotfiles() {
 # Make vim awesome
 vim_conf() {
   # Copy .vimrc
-  rm ~/.vimrc || true
+  rm ~/.vimrc 2>/dev/null || true
   ln -s $dotdir/dotfiles/vimrc ~/.vimrc
   # Install vundle
   mkdir -p ~/.vim/bundle
@@ -96,30 +98,34 @@ vim_conf() {
   mkdir -p ~/.vim/backup ~/.vim/swap ~/.vim/undo ~/.vim/view
 
   # Copy .ctags
-  rm ~/.ctags || true
+  rm ~/.ctags 2>/dev/null || true
   ln -s $dotdir/dotfiles/ctags ~/.ctags
 }
 
 # Make tmux awesome
 tmux_conf() {
   # Copy .tmux.conf
-  rm ~/.tmux.conf || true
+  rm ~/.tmux.conf 2>/dev/null || true
   cp $dotdir/dotfiles/tmux.conf ~/.tmux.conf
   if [ -f ~/.tmux.conf.local ]; then
     cat ~/.tmux.conf.local >> ~/.tmux.conf
   fi
-  rm ~/.gitmux || true
+  rm ~/.gitmux 2>/dev/null || true
   ln -s $dotdir/dotfiles/gitmux ~/.gitmux
 }
 
 # Make zsh awesome
 zsh_conf() {
-  rm ~/.zlogin ~/.zlogout ~/.zpreztorc ~/.zprofile ~/.zshenv ~/.zshenv_custom ~/.zshrc || true
+  rm ~/.zlogin ~/.zlogout ~/.zpreztorc ~/.zprofile ~/.zshenv ~/.zshrc 2>/dev/null || true
   ln -s $dotdir/dotfiles/zshenv ~/.zshenv
   ln -s $dotdir/dotfiles/zshrc ~/.zshrc
   # Install zsh-snap
-  cd $dotdir
-  git clone https://github.com/marlonrichert/zsh-snap.git
+  if [ ! -d $dotdir/zsh-snap ]; then
+    git clone https://github.com/marlonrichert/zsh-snap.git $dotdir/zsh-snap
+  else
+    cd $dotdir/zsh-snap
+    git pull
+  fi
 }
 
 _detect_os
