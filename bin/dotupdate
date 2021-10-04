@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
-cd ~/.dotfiles
+cd ~/dot/dotfiles
 git pull
 ./setup.sh
