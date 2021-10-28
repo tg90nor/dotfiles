@@ -1,4 +1,16 @@
+export DOTDIR=$HOME/dot
+
+export XDG_RUNTIME_DIR=$HOME/.xdg-runtime-dir
+
+path+=$DOTDIR/dotfiles/bin
+path+=$HOME/bin
+
+if [ "$(uname)" = "Darwin" ]; then
+  path+=$HOME/dot/dotfiles/bin/macos
+fi
+
 # Source custom settings
 if [[ -s "$HOME/.zshenv_custom" ]]; then
   source "$HOME/.zshenv_custom"
 fi
+export PATH

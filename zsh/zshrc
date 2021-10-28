@@ -1,8 +1,6 @@
 # znap
 source "$HOME/dot/zsh-snap/znap.zsh"
 
-export DOTDIR=$HOME/dot
-
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt SHARE_HISTORY             # Share history between all sessions.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
@@ -34,13 +32,11 @@ bindkey -s "^[OM" "^M"
 export VISUAL=vim
 export EDITOR=vim
 export LESS='-F -g -R -X -z-4'
-# dotfile scripts in path
-path+=$DOTDIR/dotfiles/bin
-path+=$HOME/bin
 
 ## Completion
 if which kubectl >/dev/null; then
   source <(kubectl completion zsh)
+  compdef _kubectl kc
 fi
 
 # Aliases
@@ -53,16 +49,10 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   source "$HOME/dot/dotfiles/zsh/zshrc_wsl"
 fi
 
-if [ "$(uname)" = "Darwin" ]; then
-  path+=$HOME/dot/dotfiles/bin/macos
-fi
-
 # Source custom settings
 if [ -s "$HOME/.zshrc_custom" ]; then
   source "$HOME/.zshrc_custom"
 fi
-
-export PATH
 
 if [ -z $TMUX ]; then
   echo "Remember to tmux"
