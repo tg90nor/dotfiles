@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+  echo "Opens a browser pointing to localhost and the specified port"
+  echo "Usage: $0 port"
+  exit
+fi
+
+port=$1
+wslview http://127.0.0.1:$port/

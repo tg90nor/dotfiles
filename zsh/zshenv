@@ -9,6 +9,10 @@ if [ "$(uname)" = "Darwin" ]; then
   path+=$HOME/dot/dotfiles/bin/macos
 fi
 
+if grep -qi microsoft /proc/version; then
+  path+=$HOME/dot/dotfiles/bin/wsl
+fi
+
 # Source custom settings
 if [[ -s "$HOME/.zshenv_custom" ]]; then
   source "$HOME/.zshenv_custom"
