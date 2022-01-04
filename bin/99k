@@ -1,0 +1,43 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 command [args ...]"
+  exit
+fi
+
+start=$(date '+%s')
+
+name=$1
+dir=$HOME/.99
+pidfile=$dir/$name.pid
+if ! [ -f "$pidfile" ]; then
+  echo "File does not exist: $pidfile"
+  exit 2
+fi
+
+cleanup() {
+  if ! ps $pid >/dev/null; then
+    rm $pidfile
+    end=$(date '+%s')
+    echo "Killed $name in $(($end - $start)) seconds"
+  fi
+}
+
+pid=$(cat $pidfile)
+
+echo "Killing $name with pid: $pid"
+kill -s 15 $pid
+sleep 0.1
+cleanup && exit 0
+for i in $(seq 1 5); do
+  sleep 1
+  cleanup && exit 0
+  echo "$name still running after $i seconds"
+done
+echo "SIGTERM failed, doing a SIGKILL"
+kill -s 9 $pid
+sleep 0.1
+cleanup && exit 0
+
+echo "$name is still running after a SIGKILL. Giving up."
+exit 1
