@@ -2,19 +2,19 @@ export DOTDIR=$HOME/dot
 
 export XDG_RUNTIME_DIR=$HOME/.xdg-runtime-dir
 
-path+=$DOTDIR/dotfiles/bin
-path+=$HOME/bin
+ppath=($DOTDIR/dotfiles/bin $HOME/bin)
 
 if [ "$(uname)" = "Darwin" ]; then
-  path+=$HOME/dot/dotfiles/bin/macos
+  ppath+=$HOME/dot/dotfiles/bin/macos
 fi
 
 if grep -qi microsoft /proc/version; then
-  path+=$HOME/dot/dotfiles/bin/wsl
+  ppath+=$HOME/dot/dotfiles/bin/wsl
 fi
 
 # Source custom settings
 if [[ -s "$HOME/.zshenv_custom" ]]; then
   source "$HOME/.zshenv_custom"
 fi
+path=($ppath[@] $path[@])
 export PATH
