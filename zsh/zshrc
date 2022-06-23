@@ -41,6 +41,7 @@ fi
 
 # Aliases
 alias cr="code -r"
+alias cr.="code -r ."
 alias ll="ls -l"
 alias la="ls -la"
 
