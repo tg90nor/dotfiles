@@ -2,20 +2,6 @@
 
 dotdir="${DOTDIR:-$HOME/dot}"
 
-if [ -z $DOTFILES_CLONE_METHOD ]; then
-  echo "Which method do you want to use for cloning the dotfiles git repo? (ssh|https)"
-  read </dev/tty dotfiles_clone_method
-  if [ "$dotfiles_clone_method" != "ssh" ] && [ "$dotfiles_clone_method" != "https" ]; then
-    echo "Unrecognized option '$dotfiles_clone_method'. Aborting."
-    exit 127
-  fi
-else
-  dotfiles_clone_method="$DOTFILES_CLONE_METHOD"
-fi
-
-echo "dotdir=$dotdir"
-echo "dotfiles_clone_method=$dotfiles_clone_method"
-
 _detect_os() {
   os="dunno"
   unamestr=$(uname | tr '[:upper:]' '[:lower:]')
@@ -75,6 +61,20 @@ install_pkgs() {
 
 install_dotfiles() {
   if [ ! -d $dotdir/dotfiles ]; then
+    if [ -z $DOTFILES_CLONE_METHOD ]; then
+      echo "Which method do you want to use for cloning the dotfiles git repo? (ssh|https)"
+      read </dev/tty dotfiles_clone_method
+      if [ "$dotfiles_clone_method" != "ssh" ] && [ "$dotfiles_clone_method" != "https" ]; then
+        echo "Unrecognized option '$dotfiles_clone_method'. Aborting."
+        exit 127
+      fi
+    else
+      dotfiles_clone_method="$DOTFILES_CLONE_METHOD"
+    fi
+
+    echo "dotdir=$dotdir"
+    echo "dotfiles_clone_method=$dotfiles_clone_method"
+
     mkdir -p $dotdir
     if [ "$dotfiles_clone_method" = "https" ]; then
       git clone https://github.com/tg90nor/dotfiles.git $dotdir/dotfiles
@@ -129,11 +129,33 @@ zsh_conf() {
 }
 
 _detect_os
+
+if [ $# -ne 0 ]; then
+  case $1 in
+    "tmux")
+      shift
+      tmux_conf $@
+      ;;
+    "vim")
+      shift
+      vim_conf $@
+      ;;
+    "zsh")
+      shift
+      zsh_conf $@
+      ;;
+    *)
+      $@
+      ;;
+  esac
+  exit
+fi
+
 _install_pkg_cmd
 
 install_pkgs curl tmux git vim
 
 install_dotfiles
-vim_conf
-tmux_conf
-zsh_conf
+vim
+tmux
+zsh
