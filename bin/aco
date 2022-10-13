@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+if [ -z $1 ]; then
+  az account show -o json | jq -r '.id+" "+.name'
+else
+  if [ "$1" = "-l" ]; then
+    az account list -o json | jq -r '.[]| .id+" "+.name'
+  else
+    az account set --subscription "$@"
+  fi
+fi
