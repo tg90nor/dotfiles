@@ -7,6 +7,7 @@ ppath=($DOTDIR/dotfiles/bin $HOME/bin)
 if [ "$(uname)" = "Darwin" ]; then
   ppath+=$HOME/dot/dotfiles/bin/macos
   ppath+=/opt/homebrew/bin
+  ppath+=/opt/homebrew/sbin
 fi
 
 if $(uname -a | grep -qi microsoft); then
