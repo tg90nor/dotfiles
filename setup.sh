@@ -156,6 +156,6 @@ _install_pkg_cmd
 install_pkgs curl tmux git vim
 
 install_dotfiles
-vim
-tmux
-zsh
+vim_conf
+tmux_conf
+zsh_conf

@@ -1,3 +1,5 @@
+fpath+=$DOTDIR/dotfiles/zsh/completions
+
 # znap
 source "$HOME/dot/zsh-snap/znap.zsh"
 
@@ -39,6 +41,7 @@ if which kubectl >/dev/null; then
   compdef _kubectl kc
 fi
 
+
 # Aliases
 alias cr="code -r"
 alias cr.="code -r ."
@@ -47,7 +50,7 @@ alias la="ls -la"
 
 # WSL specific stuff
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-  source "$HOME/dot/dotfiles/zsh/zshrc_wsl"
+  source "$DOTDIR/dotfiles/zsh/zshrc_wsl"
 fi
 
 # Source custom settings

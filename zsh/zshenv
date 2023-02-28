@@ -2,16 +2,19 @@ export DOTDIR=$HOME/dot
 
 export XDG_RUNTIME_DIR=$HOME/.xdg-runtime-dir
 
-ppath=($DOTDIR/dotfiles/bin $HOME/bin)
+ppath=()
+path+=$DOTDIR/dotfiles/bin
+path+=$HOME/bin
 
 if [ "$(uname)" = "Darwin" ]; then
-  ppath+=$HOME/dot/dotfiles/bin/macos
+  path+=$DOTDIR/dotfiles/bin/macos
+  ppath+=/usr/local/bin
   ppath+=/opt/homebrew/bin
   ppath+=/opt/homebrew/sbin
 fi
 
 if $(uname -a | grep -qi microsoft); then
-  ppath+=$HOME/dot/dotfiles/bin/wsl
+  path+=$HOME/dot/dotfiles/bin/wsl
 fi
 
 # Source custom settings
