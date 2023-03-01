@@ -38,7 +38,7 @@ export LESS='-F -g -R -X -z-4'
 ## Completion
 if which kubectl >/dev/null; then
   source <(kubectl completion zsh)
-  compdef _kubectl kc
+  compdef _kubectl k
 fi
 
 

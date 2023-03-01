@@ -1,3 +1,5 @@
 #!/usr/bin/env zsh
 
-kubectl "$@"
+context=$1
+shift
+kubectl --context "$context" "$@"

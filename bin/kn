@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+namespace=$1
+shift
+
+kubectl --namespace "$namespace" "$@"

@@ -1,0 +1,10 @@
+#compdef kc
+_kc()
+{
+  __kubecustom --context
+}
+
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_kc" ]; then
+	_kc
+fi

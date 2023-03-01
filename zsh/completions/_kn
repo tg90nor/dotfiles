@@ -1,0 +1,6 @@
+#compdef kn
+_kn()
+{
+  __kubecustom --namespace
+}
+

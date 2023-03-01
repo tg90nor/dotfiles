@@ -1,0 +1,10 @@
+#compdef kcn
+_kcn()
+{
+  __kubecustom --context --namespace
+}
+
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_kcn" ]; then
+	_kcn
+fi
