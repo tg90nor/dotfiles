@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+file=$0:t
+dir=$0:h
+version_var="${file:u}_VERSION"
+
+if [ -z ${(P)version_var} ]; then
+  target=$(ls -1 $dir | grep ${file}- | grep -Ev "(md5|sha|sha256)sum" | sort --version-sort | tail -1)
+else
+  version=${(P)version_var}
+  target="${file}-${version}"
+
+  if [ ! -x "$dir/$target" ]; then
+    cd $dir
+    make $target
+  fi
+fi
+
+$dir/$target $@

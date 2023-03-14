@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+if [ $# -eq 1 ]; then
+  vimargs=( -c "setl filetype=$1" - )
+else
+  vimargs=( - )
+fi
+
+view ${vimargs[@]}
+
