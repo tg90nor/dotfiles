@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+usage() {
+  echo "Usage: $1 context"
+}
+
+if [ $# -ne 1 ]; then
+  usage $0:t
+  exit
+fi
+
+context=$1
+
+kubectl config unset contexts.$context

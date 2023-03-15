@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+usage() {
+  echo "Usage: $1 source-context destination-context"
+}
+
+if [ $# -ne 2 ]; then
+  usage $0:t
+  exit
+fi
+
+source=$1
+destination=$2
+
+cluster=$(kubectl config get-contexts --no-headers $source | sed 's/^ /n/g' | awk '{print $3}')
+user=$(kubectl config get-contexts --no-headers $source | sed 's/^ /n/g' | awk '{print $4}')
+
+kubectl config set-context $destination --cluster=$cluster --user=$user
+kubectl config unset contexts.$source
