@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+_pr() {
+  if [ "$1" = "co" ]; then
+    shift
+    gh pr checkout $@
+  elif [ "$1" = "c" ]; then
+    shift
+    gh pr create $@
+  elif [ "$1" = "v" ]; then
+    shift
+    gh pr view
+  elif [ "$1" = "w" ]; then
+    shift
+    gh pr view -w
+  else
+    gh pr $@
+  fi
+}
+
+if [ "$1" = "p" ]; then
+  shift
+  _pr $@
+else
+  gh $@
+fi
