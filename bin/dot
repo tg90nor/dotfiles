@@ -16,7 +16,7 @@ case $1 in
     if [ -s $DOTDIR/envs/$1 ]; then
       t=$(readlink $DOTDIR/envs/$1)
       n=$(basename $t)
-      tmux attach -t $n || tmux new-session -c $t -s $n
+      tmux attach -t "=$n" || tmux new-session -c $t -s $n
     else
       echo "Usage: $0 setup | update"
       exit 127
