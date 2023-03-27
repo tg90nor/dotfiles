@@ -84,11 +84,25 @@ install_dotfiles() {
   fi
 }
 
+conf_file() {
+  s=$1
+  if [ $# -eq 2 ]; then
+    d=$2
+  else
+    d=$HOME/.$s
+  fi
+
+  mkdir -p $d:h
+  if [ -f "$d" ] && [ ! -L "$d" ]; then
+    mv $d $d.bak
+  fi
+  ln -sf $dotdir/dotfiles/$s $d
+}
+
 # Make vim awesome
 vim_conf() {
-  # Copy .vimrc
-  rm ~/.vimrc 2>/dev/null || true
-  ln -s $dotdir/dotfiles/vimrc ~/.vimrc
+  conf_file vimrc
+  conf_file ctags
   # Install vundle
   mkdir -p ~/.vim/bundle
   if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
@@ -96,10 +110,6 @@ vim_conf() {
   fi
   # Create directories to hold vim backup, swap, undo and view files
   mkdir -p ~/.vim/backup ~/.vim/swap ~/.vim/undo ~/.vim/view
-
-  # Copy .ctags
-  rm ~/.ctags 2>/dev/null || true
-  ln -s $dotdir/dotfiles/ctags ~/.ctags
 }
 
 # Make tmux awesome
@@ -110,15 +120,14 @@ tmux_conf() {
   if [ -f ~/.tmux.conf.local ]; then
     cat ~/.tmux.conf.local >> ~/.tmux.conf
   fi
-  rm ~/.gitmux 2>/dev/null || true
-  ln -s $dotdir/dotfiles/gitmux ~/.gitmux
+  conf_file gitmux
 }
 
 # Make zsh awesome
 zsh_conf() {
   rm ~/.zlogin ~/.zlogout ~/.zpreztorc ~/.zprofile ~/.zshenv ~/.zshrc 2>/dev/null || true
-  ln -s $dotdir/dotfiles/zsh/zshenv ~/.zshenv
-  ln -s $dotdir/dotfiles/zsh/zshrc ~/.zshrc
+  conf_file zsh/zshenv ~/.zshenv
+  conf_file zsh/zshrc ~/.zshrc
   # Install zsh-snap
   if [ ! -d $dotdir/zsh-snap ]; then
     git clone https://github.com/marlonrichert/zsh-snap.git $dotdir/zsh-snap
@@ -159,3 +168,4 @@ install_dotfiles
 vim_conf
 tmux_conf
 zsh_conf
+conf_file gh-config.yml ~/.config/gh/config.yml
