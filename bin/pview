@@ -6,5 +6,5 @@ else
   vimargs=( - )
 fi
 
-view ${vimargs[@]}
+vim -R ${vimargs[@]}
 
