@@ -46,8 +46,15 @@ fi
 # Aliases
 alias cr="code -r"
 alias cr.="code -r ."
+alias l="ls -l"
 alias ll="ls -l"
 alias la="ls -la"
+
+alias -g V="| pview"
+alias -g Y="-o yaml"
+alias -g YV="-o yaml | pview yaml"
+alias -g J="-o json"
+alias -g JV="-o json | pview json"
 
 # WSL specific stuff
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
