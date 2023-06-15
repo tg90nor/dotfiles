@@ -19,7 +19,7 @@ case $1 in
       if [ -z $TMUX ]; then
         tmux attach -t "=$n" || tmux new-session -c $t -s $n
       else
-        tmux switchc -t "=$n"
+        tmux switchc -t "=$n" || tmux new-session -c $t -s $n -d && tmux switchc -t "=$n"
       fi
     else
       echo "Usage: $0 setup | update"
