@@ -16,4 +16,9 @@ else
   fi
 fi
 
-$dir/$target $@
+if [ -z $target ]; then
+  echo "No potential $file version found" >&2
+  exit 2
+fi
+
+$dir/$target "$@"
