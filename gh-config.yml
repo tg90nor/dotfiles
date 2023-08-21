@@ -7,7 +7,7 @@ prompt: enabled
 # A pager program to send command output to, e.g. "less". Set the value to "cat" to disable the pager.
 pager:
 # Aliases allow you to create nicknames for gh commands
-aliases: {p-c: pr create, p-co: pr checkout, p-v: pr view, p-w: pr view -w, p-m: pr merge -s -b "" -d, r-c: repo clone, rw: repo view -w}
+aliases: {p-c: pr create, p-co: pr checkout, p-v: pr view, p-w: pr view -w, p-m: pr merge -s -b "" -d, r-c: repo clone, r-w: repo view -w}
 # The path to a unix socket through which send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.
 http_unix_socket:
 # What web browser gh should use when opening URLs. If blank, will refer to environment.

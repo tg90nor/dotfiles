@@ -46,7 +46,7 @@ fi
 # Aliases
 alias cr="code -r"
 alias cr.="code -r ."
-alias l="ls -l"
+alias l="ls -lA"
 alias ll="ls -l"
 alias la="ls -la"
 
@@ -55,6 +55,9 @@ alias -g Y="-o yaml"
 alias -g YV="-o yaml | pview yaml"
 alias -g J="-o json"
 alias -g JV="-o json | pview json"
+
+alias gcom='git checkout $(gh repo view --json defaultBranchRef -q ".defaultBranchRef.name")'
+alias cdr='cd $(git rev-parse --show-toplevel)'
 
 # WSL specific stuff
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
