@@ -6,6 +6,15 @@ case $1 in
     cd $DOTDIR/dotfiles
     ./setup.sh $@
     ;;
+  check)
+    shift
+    cd $DOTDIR/dotfiles
+    if find ~/dot/dotfiles/.git/FETCH_HEAD -mtime +1d | grep . >/dev/null; then
+      git fetch origin
+    fi
+    echo "dotfiles status:"
+    git status -bs | grep . || echo "All up to date"
+    ;;
   update)
     shift
     cd ~/dot/dotfiles
@@ -17,9 +26,9 @@ case $1 in
       t=$(readlink $DOTDIR/envs/$1)
       n=$(basename $t)
       if [ -z $TMUX ]; then
-        tmux attach -t "=$n" || tmux new-session -c $t -s $n
+        tmux attach -t "=$n" || tmux new-session -c $t -e DOTENV=$t -s $n
       else
-        tmux switchc -t "=$n" || tmux new-session -c $t -s $n -d && tmux switchc -t "=$n"
+        tmux switchc -t "=$n" || tmux new-session -c $t -e DOTENV=$t -s $n -d && tmux switchc -t "=$n"
       fi
     else
       echo "Usage: $0 setup | update"

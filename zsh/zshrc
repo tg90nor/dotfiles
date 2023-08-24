@@ -49,14 +49,17 @@ alias cr.="code -r ."
 alias l="ls -lA"
 alias ll="ls -l"
 alias la="ls -la"
+alias cdde='cd $DOTENV'
 
 alias -g V="| pview"
 alias -g Y="-o yaml"
 alias -g YV="-o yaml | pview yaml"
 alias -g J="-o json"
 alias -g JV="-o json | pview json"
+alias -g GB='$(gh repo view --json defaultBranchRef -q ".defaultBranchRef.name")'
 
 alias gcom='git checkout $(gh repo view --json defaultBranchRef -q ".defaultBranchRef.name")'
+alias gP='git pull'
 alias cdr='cd $(git rev-parse --show-toplevel)'
 
 # WSL specific stuff
@@ -69,8 +72,15 @@ if [ -s "$HOME/.zshrc_custom" ]; then
   source "$HOME/.zshrc_custom"
 fi
 
+# merge ppath into path again since macos stupidly rearranges PATH
+path=($ppath[@] $path[@])
+export PATH
+
 if [ -z $TMUX ]; then
   echo "Remember to tmux"
 fi
+
+dot check
+
 znap prompt tg90nor/prompt
 true
