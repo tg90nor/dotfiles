@@ -9,7 +9,7 @@ case $1 in
   check)
     shift
     cd $DOTDIR/dotfiles
-    if find ~/dot/dotfiles/.git/FETCH_HEAD -mtime +1d | grep . >/dev/null; then
+    if find ~/dot/dotfiles/.git/FETCH_HEAD -mtime +1 | grep . >/dev/null; then
       git fetch origin
     fi
     echo "dotfiles status:"
