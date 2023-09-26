@@ -57,8 +57,13 @@ alias -g YV="-o yaml | pview yaml"
 alias -g J="-o json"
 alias -g JV="-o json | pview json"
 alias -g GB='$(gh repo view --json defaultBranchRef -q ".defaultBranchRef.name")'
+alias -g G='| grep'
+alias -g JQ='| jq'
+alias -g KSEC="-o json | jq '.data | map_values(@base64d)'"
+alias -g KSECR='-o json | jq -r '"'"'.data | map_values(@base64d) | keys[] as $k | "\($k)=\(.[$k])"'"'"
 
 alias gcom='git checkout $(gh repo view --json defaultBranchRef -q ".defaultBranchRef.name")'
+alias gcob='git checkout -b'
 alias gP='git pull'
 alias cdr='cd $(git rev-parse --show-toplevel)'
 
