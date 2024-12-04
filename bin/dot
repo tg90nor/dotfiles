@@ -24,7 +24,7 @@ case $1 in
     ./setup.sh $@
     ;;
   *)
-    if [ -s $DOTDIR/envs/$1 ]; then
+    if [ -L $DOTDIR/envs/$1 ]; then
       t=$(readlink $DOTDIR/envs/$1)
       n=$(basename $t)
       if [ -z $TMUX ]; then

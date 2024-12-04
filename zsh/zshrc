@@ -32,8 +32,8 @@ bindkey -M viins "$key_info[Down]" history-substring-search-down
 bindkey -s "^[OM" "^M"
 
 # Variables
-export VISUAL=vim
-export EDITOR=vim
+#export VISUAL=vim
+#export EDITOR=vim
 export LESS='-F -g -R -X -z-4'
 
 ## Completion

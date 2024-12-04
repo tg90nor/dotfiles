@@ -1,6 +1,6 @@
 export DOTDIR=$HOME/dot
 
-export XDG_RUNTIME_DIR=$HOME/.xdg-runtime-dir
+#export XDG_RUNTIME_DIR=$HOME/.xdg-runtime-dir
 
 ppath=()
 path+=$DOTDIR/dotfiles/bin
