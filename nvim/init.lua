@@ -17,15 +17,16 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugin configuration using lazy.nvim
 require("lazy").setup({
   spec = {
-    { "neovim/nvim-lspconfig" },
+    { "github/copilot.vim" },
     { "ku1ik/vim-monokai" },
+    { "LnL7/vim-nix" },
+    { "neovim/nvim-lspconfig" },
     { "nvim-lua/plenary.nvim" },
     { "nvim-telescope/telescope.nvim", tag = "0.1.8" },
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
     },
-    { "LnL7/vim-nix" },
     { "rhysd/conflict-marker.vim" },
     { import = "plugins" },
   },
