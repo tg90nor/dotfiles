@@ -19,6 +19,7 @@ HISTFILE=$DOTDIR/zsh-history
 HISTSIZE=10000
 SAVEHIST=10000
 
+HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS=
 znap source zsh-users/zsh-syntax-highlighting
 znap source zsh-users/zsh-history-substring-search
 znap source zsh-users/zsh-autosuggestions
@@ -35,13 +36,13 @@ bindkey -s "^[OM" "^M"
 #export VISUAL=vim
 #export EDITOR=vim
 export LESS='-F -g -R -X -z-4'
+export RIPGREP_CONFIG_PATH=$DOTDIR/dotfiles/ripgreprc
 
 ## Completion
 if which kubectl >/dev/null; then
   source <(kubectl completion zsh)
   compdef _kubectl k
 fi
-
 
 # Aliases
 alias cr="code -r"

@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
-let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-in {
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "glitterhoof";
@@ -15,7 +13,7 @@ in {
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "25.05";
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -27,28 +25,47 @@ in {
 
 
   home.packages = with pkgs; [
-    (unstable.google-cloud-sdk.withExtraComponents [unstable.google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    alacritty
+    (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+    awscli2
     brave
     clipboard-jh
+    cmake
     discord
     font-awesome
     gh
+    ghostty
+    git-secret
+    gnumake
     go
     google-chrome
     gopls
     haruna
+    inkscape-with-extensions
+    jq
     kubectl
-    nerdfonts
+    kubernetes-helm
+    nerd-fonts.monaspace
+    node2nix
+    nodejs
     obs-cli
     pavucontrol
+    python312Packages.ollama
+    python312Packages.pip
+    python312Packages.pygls
+    python312Packages.python
+    python312Packages.setuptools
     ripgrep
+    ruby_3_2
     signal-desktop
     slack
     spotify
+    steamtinkerlaunch
     terraform
     terraform-ls
+    vlc
+    wasmer
     waybar
+    wl-clipboard
     wofi
     xdg-desktop-portal-hyprland
     xdg-utils
@@ -92,6 +109,10 @@ in {
   # Let Home Manager install and manage itself.
   programs = {
     home-manager.enable = true;
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
     tmux = {
       enable = true;
       terminal = "screen-256color";

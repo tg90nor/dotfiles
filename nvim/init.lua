@@ -1,17 +1,35 @@
 vim.g.mapleader = ','
 
-local Plug = vim.fn['plug#']
+-- Install lazy.nvim if you haven't already
+local lazypath = vim.fn.stdpath("data").. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-vim.call('plug#begin')
-
-Plug('neovim/nvim-lspconfig')
-Plug('sickill/vim-monokai')
-Plug('nvim-lua/plenary.nvim')
-Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.8' })
-Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' })
-Plug('LnL7/vim-nix')
-
-vim.call('plug#end')
+-- Plugin configuration using lazy.nvim
+require("lazy").setup({
+  spec = {
+    { "neovim/nvim-lspconfig" },
+    { "ku1ik/vim-monokai" },
+    { "nvim-lua/plenary.nvim" },
+    { "nvim-telescope/telescope.nvim", tag = "0.1.8" },
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+    },
+    { "LnL7/vim-nix" },
+    { "rhysd/conflict-marker.vim" },
+    { import = "plugins" },
+  },
+})
 
 local lspconfig = require("lspconfig")
 
@@ -61,4 +79,5 @@ vim.opt.cc = { 80, 140 }
 vim.opt.mouse = ''
 vim.opt.guicursor = ''
 vim.cmd 'colorscheme monokai'
+vim.api.nvim_set_hl(0, 'Normal', { ctermbg="None", bg="None" })
 vim.keymap.set('n', '<leader>g', '<C-]>')
