@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 {
   home.username = "glitterhoof";
@@ -71,7 +71,7 @@
     travis
     unrar-wrapper
     vault
-    vintagestory
+    pkgs-unstable.vintagestory
     vlc
     waybar
     wl-clipboard
