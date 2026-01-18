@@ -137,6 +137,12 @@ zsh_conf() {
   fi
 }
 
+homemanager_conf() {
+  conf_file home-manager/home.nix ~/.config/home-manager/home.nix
+  conf_file home-manager/flake.nix ~/.config/home-manager/flake.nix
+  conf_file home-manager/flake.lock ~/.config/home-manager/flake.lock
+}
+
 _detect_os
 
 if [ $# -ne 0 ]; then
@@ -153,6 +159,10 @@ if [ $# -ne 0 ]; then
       shift
       zsh_conf $@
       ;;
+    "homemanager")
+      shift
+      homemanager_conf $@
+      ;;
     *)
       $@
       ;;
@@ -168,4 +178,5 @@ install_dotfiles
 vim_conf
 tmux_conf
 zsh_conf
+homemanager_conf
 conf_file gh-config.yml ~/.config/gh/config.yml
