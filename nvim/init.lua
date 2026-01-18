@@ -69,6 +69,7 @@ vim.keymap.set('n', '<leader>fg', tsco_builtin.live_grep, { desc = 'Telescope li
 vim.keymap.set('n', '<leader>fb', tsco_builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', tsco_builtin.help_tags, { desc = 'Telescope help tags' })
 
+vim.opt.undofile = true
 vim.opt.tabstop=2
 vim.opt.shiftwidth=2
 vim.opt.softtabstop=2
@@ -82,3 +83,8 @@ vim.opt.guicursor = ''
 vim.cmd 'colorscheme monokai'
 vim.api.nvim_set_hl(0, 'Normal', { ctermbg="None", bg="None" })
 vim.keymap.set('n', '<leader>g', '<C-]>')
+
+if os.getenv("VIM_PROJECT_INDENT_STYLE") == "tabs" then
+  print("Applying project-specific tab settings.")
+  vim.opt.expandtab = false
+end
