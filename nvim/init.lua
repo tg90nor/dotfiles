@@ -47,6 +47,18 @@ lspconfig.gopls.setup({
 })
 
 lspconfig.terraformls.setup{}
+
+local lsp_log_path = vim.fn.stdpath("state") .. "/lsp.log"
+local backup_log_path = lsp_log_path .. ".1"
+local max_size = 100 * 1024 * 1024 -- 50 MB (Adjust as needed)
+
+local stats = vim.uv.fs_stat(lsp_log_path)
+if stats and stats.size > max_size then
+  -- Rename current log to .1 (effectively rotating it)
+  -- This overwrites the previous .1 file automatically
+  os.rename(lsp_log_path, backup_log_path)
+end
+
 vim.api.nvim_create_autocmd({"BufWritePre"}, {
   pattern = {"*.tf", "*.tfvars"},
   callback = function()
