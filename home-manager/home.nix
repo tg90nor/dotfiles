@@ -22,10 +22,13 @@
     binutils
     brave
     btop
+    pkgs-unstable.claude-code
     clipboard-jh
     cmake
     corepack
     discord
+    distrobox
+    dos2unix
     dotnet-sdk
     font-awesome
     gh
@@ -58,6 +61,7 @@
     python312Packages.pygls
     python312Packages.python
     python312Packages.setuptools
+    qmk
     ripgrep
     ruby_3_3
     signal-desktop
@@ -65,13 +69,11 @@
     spotify
     sqlite
     sqlitebrowser
-    steamtinkerlaunch
     terraform
     terraform-ls
     travis
     unrar-wrapper
     vault
-    pkgs-unstable.vintagestory
     vlc
     waybar
     wl-clipboard
