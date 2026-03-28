@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "Updating flake inputs..."
+cd "$SCRIPT_DIR/../home-manager"
+nix flake update
+
+echo "Applying home-manager configuration..."
+home-manager switch
+
+echo "Done! Home-manager configuration updated and applied."

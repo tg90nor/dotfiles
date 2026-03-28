@@ -10,6 +10,9 @@
   home.stateVersion = "25.05";
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "travis-1.9.1"
+  ];
   nix = {
     package = pkgs.nix;
     settings.experimental-features = [ "nix-command" "flakes" ];
@@ -17,7 +20,6 @@
 
   home.packages = with pkgs; [
     (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    avalonia-ilspy
     awscli2
     binutils
     brave
@@ -32,7 +34,6 @@
     dotnet-sdk
     font-awesome
     gh
-    ghidra
     ghostty
     git-secret
     gnumake
@@ -40,10 +41,8 @@
     google-chrome
     gopls
     haruna
-    ilspycmd
     imagemagick
     inkscape-with-extensions
-    jq
     kdotool
     kind
     kubectl
@@ -62,7 +61,6 @@
     python312Packages.python
     python312Packages.setuptools
     qmk
-    ripgrep
     ruby_3_3
     signal-desktop
     slack
@@ -75,10 +73,7 @@
     unrar-wrapper
     vault
     vlc
-    waybar
     wl-clipboard
-    wofi
-    xdg-desktop-portal-hyprland
     xdg-utils
   ];
 
