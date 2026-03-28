@@ -9,6 +9,7 @@
   ];
 
   boot = {
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
     loader.grub.enable = false;
     loader.systemd-boot.enable = true;
     loader.systemd-boot.configurationLimit = 5;
