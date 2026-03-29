@@ -70,6 +70,8 @@
     };
   };
 
+  virtualisation.podman.enable = true;
+
   users.users.glitterhoof = {
     extraGroups = [ "wheel" "input" "wireshark" ];
   };
@@ -109,6 +111,7 @@
     ripgrep
     rust-analyzer
     rustc
+    shadow
     strawberry
     pkgs-unstable.opencode
     usbutils

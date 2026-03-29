@@ -36,14 +36,7 @@
             ./lib/nixos-modules/base-packages.nix
             ./lib/nixos-modules/services/ssh.nix
             ./lib/nixos-modules/services/k3s.nix
-          ];
-        };
-
-        epoch-cube-disk = lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { pkgs-unstable = pkgs-unstable; };
-          modules = [
-            ./hosts/epoch-cube/disk-image.nix
+            ./lib/nixos-modules/services/home-assistant.nix
           ];
         };
 
@@ -57,10 +50,6 @@
             ./lib/nixos-modules/desktop/hyprland.nix
           ];
         };
-      };
-
-      packages.x86_64-linux = {
-        disk-image-epoch-cube = self.nixosConfigurations.epoch-cube-disk.config.system.build.images.raw-efi;
       };
     };
 }

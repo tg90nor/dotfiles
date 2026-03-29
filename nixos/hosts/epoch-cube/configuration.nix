@@ -8,15 +8,16 @@
   };
   networking.useDHCP = true;
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.devices = [ "/dev/sda" ];
+  boot.loader.grub.enable = false;
 
   fileSystems."/" = {
     device = "/dev/sda1";
     fsType = "btrfs";
   };
 
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  virtualisation.podman.enable = true;
+
+  networking.firewall.allowedTCPPorts = [ 22 6443 8123 ];
 
   system.autoUpgrade = {
     enable = true;

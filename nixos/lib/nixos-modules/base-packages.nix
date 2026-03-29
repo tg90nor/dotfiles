@@ -10,6 +10,7 @@
     lsof
     pciutils
     psmisc
+    shadow
     unzip
     wget
     whois
