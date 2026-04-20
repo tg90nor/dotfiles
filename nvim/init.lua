@@ -17,7 +17,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugin configuration using lazy.nvim
 require("lazy").setup({
   spec = {
-    { "github/copilot.vim" },
     { "ku1ik/vim-monokai" },
     { "LnL7/vim-nix" },
     { "neovim/nvim-lspconfig" },
@@ -28,25 +27,42 @@ require("lazy").setup({
       build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
     },
     { "rhysd/conflict-marker.vim" },
+    {
+      "sudo-tee/opencode.nvim",
+      config = function()
+        require("opencode").setup({
+          keymap_prefix = '<leader>o',
+        })
+      end,
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        {
+          "MeanderingProgrammer/render-markdown.nvim",
+          opts = {
+            anti_conceal = { enabled = false },
+            file_types = { 'markdown', 'opencode_output' },
+          },
+          ft = { 'markdown', 'Avante', 'copilot-chat', 'opencode_output' },
+        },
+        'saghen/blink.cmp',
+        'nvim-telescope/telescope.nvim',
+      },
+    },
     { import = "plugins" },
   },
 })
 
-local lspconfig = require("lspconfig")
-
-lspconfig.gopls.setup({
-  settings = {
-    gopls = {
-      analyses = {
-        unusedparams = true,
-      },
-      staticcheck = true,
-      gofumpt = true,
+vim.lsp.config.gopls.settings = {
+  gopls = {
+    analyses = {
+      unusedparams = true,
     },
+    staticcheck = true,
+    gofumpt = true,
   },
-})
-
-lspconfig.terraformls.setup{}
+}
+vim.lsp.enable("gopls")
+vim.lsp.enable("terraformls")
 
 local lsp_log_path = vim.fn.stdpath("state") .. "/lsp.log"
 local backup_log_path = lsp_log_path .. ".1"
@@ -80,6 +96,8 @@ vim.keymap.set('n', '<leader>ff', tsco_builtin.find_files, { desc = 'Telescope f
 vim.keymap.set('n', '<leader>fg', tsco_builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', tsco_builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', tsco_builtin.help_tags, { desc = 'Telescope help tags' })
+
+vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { noremap = true, silent = true })
 
 vim.opt.undofile = true
 vim.opt.tabstop=2

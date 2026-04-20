@@ -3,7 +3,13 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../lib/nixos-modules/desktop/hyprland.nix
   ];
+
+  services.hyprland = {
+    enable = true;
+    greetd = false;
+  };
 
   networking.hostName = "glitternix";
 
