@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 let
   cfg = config.services.hyprland;
@@ -32,20 +32,39 @@ in
       };
     };
 
+    security.pam.services.login.kwallet.enable = true;
+
     programs.hyprland = {
       enable = true;
-      xwayland.enable = true;
+      xwayland = {
+        enable = true;
+      };
+    };
+
+    programs.waybar = {
+      enable = true;
+    };
+
+    programs.yazi = {
+      enable = true;
     };
 
     environment.systemPackages = with pkgs; [
-      wl-clipboard
-      xdg-utils
-      dunst
-      mako
-      wayland
-      wofi
       brightnessctl
+      dunst
+      ghostty
+      grim
+      hyprlock
+      hyprpaper
+      pkgs-unstable.hyprshutdown
+      mako
       playerctl
+      slurp
+      wayland
+      wl-clipboard
+      wofi
+      xdg-utils
+      xeyes
     ];
   };
 }

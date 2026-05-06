@@ -24,6 +24,7 @@
             ./lib/nixos-modules/common.nix
             ./lib/nixos-modules/base-packages.nix
             ./lib/nixos-modules/desktop/kde.nix
+            ./lib/nixos-modules/desktop/hyprland.nix
           ];
         };
 

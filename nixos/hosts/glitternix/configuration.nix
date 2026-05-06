@@ -3,7 +3,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../lib/nixos-modules/desktop/hyprland.nix
   ];
 
   services.hyprland = {
@@ -14,6 +13,14 @@
   networking.hostName = "glitternix";
 
   services = {
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
+    };
+
     hardware.openrgb = {
       enable = true;
       package = pkgs.openrgb-with-all-plugins;
@@ -80,6 +87,9 @@
 
   users.users.glitterhoof = {
     extraGroups = [ "wheel" "input" "wireshark" ];
+    openssh.authorizedKeys.keys = [
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIGhY7D80nkb4ZkkExrw7VvX6TZgh+SQvx9PDyLsa3PzoAAAAEXNzaDpyZXNpZGVudC1ldmls ssh:resident-evil"
+    ];
   };
 
   programs = {
