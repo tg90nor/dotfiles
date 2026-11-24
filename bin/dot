@@ -23,6 +23,49 @@ case $1 in
     git pull
     ./setup.sh $@
     ;;
+  envs)
+    shift
+    mkdir -p "$DOTDIR/envs"
+    case $1 in
+      list)
+        for env in "$DOTDIR/envs"/*; do
+          if [ -L "$env" ]; then
+            printf "%-20s -> %s\n" "$(basename "$env")" "$(readlink "$env")"
+          fi
+        done
+        ;;
+      create)
+        if [ -z "$2" ] || [ -z "$3" ]; then
+          echo "Usage: dot envs create <name> <target_directory>"
+          exit 1
+        fi
+        target_dir="$3"
+        target_dir="${target_dir/#\~/$HOME}"
+        if [[ "$target_dir" != /* ]]; then
+          target_dir="$PWD/$target_dir"
+        fi
+        ln -sfn "$target_dir" "$DOTDIR/envs/$2"
+        echo "Created env $2 -> $target_dir"
+        ;;
+      delete)
+        if [ -z "$2" ]; then
+          echo "Usage: dot envs delete <name>"
+          exit 1
+        fi
+        if [ -L "$DOTDIR/envs/$2" ]; then
+          rm "$DOTDIR/envs/$2"
+          echo "Deleted env $2"
+        else
+          echo "Env $2 does not exist"
+          exit 1
+        fi
+        ;;
+      *)
+        echo "Usage: dot envs list | create <name> <dir> | delete <name>"
+        exit 1
+        ;;
+    esac
+    ;;
   *)
     if [ -L $DOTDIR/envs/$1 ]; then
       t=$(readlink $DOTDIR/envs/$1)
@@ -33,7 +76,7 @@ case $1 in
         tmux switchc -t "=$n" || tmux new-session -c $t -e DOTENV=$t -s $n -d && tmux switchc -t "=$n"
       fi
     else
-      echo "Usage: $0 setup | update"
+      echo "Usage: $0 setup | check | update | envs | <env_name>"
       exit 127
     fi
     ;;
