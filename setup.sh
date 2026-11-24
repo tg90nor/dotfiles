@@ -143,6 +143,11 @@ homemanager_conf() {
   conf_file home-manager/flake.lock ~/.config/home-manager/flake.lock
 }
 
+# Make nvim awesome
+nvim_conf() {
+  conf_file nvim/init.lua ~/.config/nvim/init.lua
+}
+
 _detect_os
 
 if [ $# -ne 0 ]; then
@@ -163,6 +168,10 @@ if [ $# -ne 0 ]; then
       shift
       homemanager_conf $@
       ;;
+    "nvim")
+      shift
+      nvim_conf $@
+      ;;
     *)
       $@
       ;;
@@ -178,5 +187,6 @@ install_dotfiles
 #vim_conf
 tmux_conf
 zsh_conf
+nvim_conf
 #homemanager_conf
 conf_file gh-config.yml ~/.config/gh/config.yml
