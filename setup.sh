@@ -7,7 +7,7 @@ _detect_os() {
   unamestr=$(uname | tr '[:upper:]' '[:lower:]')
   if [ "$unamestr" = "linux" ]; then
     if [ -f /etc/os-release ]; then
-      distrostr=$(cat /etc/os-release | egrep '^ID=' | tr '=' ' '| tr -d '"' | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
+      distrostr=$(cat /etc/os-release | grep -E '^ID=' | tr '=' ' '| tr -d '"' | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
     else
       distrostr=$(lsb_release -si | tr '[:upper:]' '[:lower:]') 
     fi
@@ -40,6 +40,9 @@ _install_pkg_cmd() {
       ;;
     arch)
       install_pkg_cmd="echo sudo pacman -S"
+      ;;
+    omarchy)
+      install_pkg_cmd="yay -S"
       ;;
     *)
       echo "Unknown OS, cannot install $1"
@@ -181,7 +184,7 @@ fi
 
 _install_pkg_cmd
 
-install_pkgs curl tmux git vim
+install_pkgs curl tmux git nvim
 
 install_dotfiles
 #vim_conf
