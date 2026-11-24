@@ -175,8 +175,8 @@ _install_pkg_cmd
 install_pkgs curl tmux git vim
 
 install_dotfiles
-vim_conf
+#vim_conf
 tmux_conf
 zsh_conf
-homemanager_conf
+#homemanager_conf
 conf_file gh-config.yml ~/.config/gh/config.yml
